@@ -3,8 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:qr_reader/pages/home_page.dart';
 import 'package:qr_reader/pages/mapa_page.dart';
 import 'package:qr_reader/provider/ui_provider.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-void main() => runApp(const MyApp());
+//void main() => runApp(const MyApp());
+
+Future main() async {
+// Initialize FFI
+  sqfliteFfiInit();
+
+  databaseFactory = databaseFactoryFfi;
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
