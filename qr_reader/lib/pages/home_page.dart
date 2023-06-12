@@ -34,8 +34,9 @@ class _HomePageBody extends StatelessWidget {
     final uiProvider = Provider.of<UiProvidr>(context);
     final currentIndex = uiProvider.selectedMenuOpt;
     //DBProvider.db.database;
-    final temScan = ScanModel(valor: 'http://google.cualquiercosa.com');
-    DBProvider.db.nuevoScan(temScan);
+    //final temScan = ScanModel(valor: 'http://google.cualquiercosa.com');
+    //DBProvider.db.nuevoScan(temScan);
+    DBProvider.db.getTodosLosScans().then((scan) => print(scan));
     switch (currentIndex) {
       case 0:
         return const MapasPage();
