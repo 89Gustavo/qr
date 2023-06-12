@@ -2,10 +2,13 @@
 
 import 'dart:io';
 
-import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' show join;
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:sqflite/sqflite.dart';
+
+import 'package:qr_reader/models/scan_model.dart';
+export 'package:qr_reader/models/scan_model.dart';
 
 class DBProvider {
   static Database? _database;
@@ -37,5 +40,26 @@ class DBProvider {
                 ''');
       },
     );
+  }
+
+  Future<int> nuevoScanRaw(ScanModel nuevoScan) async {
+    final id = nuevoScan.id;
+    final tipo = nuevoScan.tipo;
+    final valor = nuevoScan.valor;
+
+    final db = await database;
+
+    final res = await db.rawInsert('''
+        INSERT INTO Scan(id, tipo, valor)
+        vlues($id, '$tipo', '$valor')
+''');
+    return res;
+  }
+
+  Future<int> nuevoScan(ScanModel nuevoScan) async {
+    final db = await database;
+
+    final res = await db.insert('Scans', nuevoScan.toJson());
+    return res;
   }
 }
